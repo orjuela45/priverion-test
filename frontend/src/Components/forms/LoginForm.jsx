@@ -4,12 +4,11 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import axiosClient from "../../helpers/AxiosClient";
 import { useForm } from "../../hooks/useForm";
 
-export const SignupForm = () => {
+export const LoginForm = () => {
 
   const {setUser, setToken} = useStateContext()
 
-  const {name, email, password, onInputChange, onResetForm} = useForm({
-    name: "",
+  const {email, password, onInputChange, onResetForm} = useForm({
     email: "",
     password: "",
   })
@@ -20,12 +19,11 @@ export const SignupForm = () => {
     setErrors()
     e.preventDefault();
     const payload = {
-      name,
       email,
       password
     };
     try {
-      const {status, data } = await axiosClient.post("/signup", payload);
+      const {status, data } = await axiosClient.post("/login", payload);
       if(status === 200){
         setUser(data.user);
         setToken(data.token);
@@ -49,10 +47,6 @@ export const SignupForm = () => {
         </div>
       }
       <div className="mb-3">
-        <label htmlFor="name" className="form-label">Name</label>
-        <input type="text" className="form-control" id="name" name="name" onChange={onInputChange} value={name} />
-      </div>
-      <div className="mb-3">
         <label htmlFor="email" className="form-label">Email</label>
         <input type="email" className="form-control" id="email" name="email" onChange={onInputChange} value={email} />
       </div>
@@ -61,9 +55,9 @@ export const SignupForm = () => {
         <input type="password" className="form-control" id="password" name="password" onChange={onInputChange} value={password} />
       </div>
       <div className="mb-3 text-center">
-        <small>Do you have an account? <Link to={"/login"}>Login here</Link></small>
+        <small>Don´t you have an account? <Link to={"/signup"}>Create one here</Link></small>
       </div>
-      <button type="submit" className="btn btn-primary col-auto">Signup</button>
+      <button type="submit" className="btn btn-primary col-auto">Login</button>
     </form>
   )
 }
