@@ -18,8 +18,8 @@ export const Navbar = () => {
   
   return (
     <nav className="navbar navbar-dark bg-dark ps-5 pe-5 p-2">
-      <a className="navbar-brand" href="/">Priverion Test</a>
-      <div className="justify-content-end">
+      <a className="navbar-brand col-3" href="/">Priverion Test</a>
+      <div className="justify-content-end col-8">
         {
           token ? <ItemsDefault user={user} handleLogout={handleLogout} /> : <ItemsGuest />
         }

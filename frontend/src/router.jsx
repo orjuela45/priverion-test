@@ -1,12 +1,25 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { DefaultLayout, GuestLayout } from "./Components/layouts";
-import { Login, NotFound, Signup } from "./views";
+import { Login, MineTodos, NotFound, PublicTodos, Signup } from "./views";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
-    children: []
+    children: [
+      {
+        path: "/",
+        element: <Navigate to={"/mine"} />
+      },
+      {
+        path: "/mine",
+        element: <MineTodos />
+      },
+      {
+        path: "/public",
+        element: <PublicTodos />
+      },
+    ]
   },
   {
     path: "/",
