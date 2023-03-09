@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { useStateContext } from "../../contexts/ContextProvider"
+import { Navbar } from "../navbar/Navbar";
 
 export const DefaultLayout = () => {
 
@@ -11,7 +12,7 @@ export const DefaultLayout = () => {
 
   return (
     <div>
-      DefaultLayout
+      <Navbar />
       <Outlet />
     </div>
   )

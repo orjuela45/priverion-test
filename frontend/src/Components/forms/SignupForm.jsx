@@ -38,7 +38,7 @@ export const SignupForm = () => {
 
   return (
     <form className="border border-dark rounded col-6 bg-white p-4 row justify-content-center" onSubmit={onSubmit}>
-      <h1 className="text-center">Login</h1>
+      <h1 className="text-center">Signup</h1>
       {errors &&
         <div className="alert alert-danger">
           <ul>
