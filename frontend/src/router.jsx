@@ -1,15 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Login, Signup } from "./views";
+import { Login, NotFound, Signup } from "./views";
 
 const router = createBrowserRouter([
   {
-    path: "login",
+    path: "/login",
     element: <Login />
   },
   {
-    path: "signup",
+    path: "/signup",
     element: <Signup />
   },
+  {
+    path: "*",
+    element: <NotFound />
+  }
 ])
 
 export default router;
