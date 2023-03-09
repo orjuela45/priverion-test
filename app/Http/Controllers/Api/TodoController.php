@@ -18,7 +18,7 @@ class TodoController extends Controller
     public function index()
     {
         $user  = Auth::user();
-        $todos = User::find($user->id)->todos;
+        $todos = User::find($user->id)->todos->where("deleted", "0");
         return TodoResource::collection($todos);
     }
 
