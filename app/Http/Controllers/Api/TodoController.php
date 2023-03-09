@@ -32,7 +32,7 @@ class TodoController extends Controller
         $todo = Todo::create([
             "title"       => $data["title"],
             "description" => $data["description"] ?? "",
-            "public"      => intval($data["public"]),
+            "public"      => intval($data["public"] ?? 0),
             "user_id"     => $user->id
         ]);
         return new TodoResource($todo);
