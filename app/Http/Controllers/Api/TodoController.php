@@ -101,6 +101,16 @@ class TodoController extends Controller
         return response(["message" => "Todo closed"]);
     }
 
+    public function changePublic(Todo $todo){
+        $user = Auth::user();
+        $responsePermissions = $this->permissionsToTodo($user, $todo);
+        if ($responsePermissions){
+            return response($responsePermissions);
+        }
+        $todo->changePublicTodo();
+        return response(["message" => "Todo is now " . ($todo->public ? "public" : "private")]);
+    }
+
     private function permissionsToTodo($user, $todo){
         if ($user->id !== $todo->user_id && !$todo->public)
         {
