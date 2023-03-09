@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/ContextProvider";
 import axiosClient from "../../helpers/AxiosClient";
+import { ItemsDefault } from "./ItemsDefault";
+import { ItemsGuest } from "./ItemsGuest";
 
 export const Navbar = () => {
 
@@ -13,28 +15,13 @@ export const Navbar = () => {
       setToken(null)
     }
   }
-
-  let itemNavbar = (
-    <>
-      <Link to={"/login"} className="navbar-brand">Login</Link>
-      <Link to={"/signup"} className="navbar-brand">Signup</Link>
-    </>
-  )
-  if (token){
-    itemNavbar = (
-    <>
-      <span className="text-white me-4">Hola {user.name}</span>
-      <a onClick={handleLogout} className="navbar-brand btn">logout</a>
-    </>
-    )
-  }
-
+  
   return (
     <nav className="navbar navbar-dark bg-dark ps-5 pe-5 p-2">
       <a className="navbar-brand" href="/">Priverion Test</a>
       <div className="justify-content-end">
         {
-          itemNavbar
+          token ? <ItemsDefault user={user} handleLogout={handleLogout} /> : <ItemsGuest />
         }
       </div>
     </nav>
