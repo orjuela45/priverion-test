@@ -21,12 +21,14 @@ Route::middleware('auth:sanctum')->group(function(){
         return $request->user();
     });
     Route::post("logout", [AuthController::class, "logout"]);
-    Route::group(["prefix" => "/todos"], function(){
-        Route::get("/public", [TodoController::class, "publicTodos"]);
-        Route::put("/close/{todo}", [TodoController::class, "closeTodo"]);
-        Route::put("/public/{todo}", [TodoController::class, "changePublic"]);
+    Route::middleware("todoAccess")->group(function(){
+        Route::group(["prefix" => "/todos"], function(){
+            Route::get("/public", [TodoController::class, "publicTodos"]);
+            Route::put("/close/{todo}", [TodoController::class, "closeTodo"]);
+            Route::put("/public/{todo}", [TodoController::class, "changePublic"]);
+        });
+        Route::apiResource("/todos", TodoController::class);
     });
-    Route::apiResource("/todos", TodoController::class);
 });
 
 Route::post("/signup", [AuthController::class, "signup"]);

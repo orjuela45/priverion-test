@@ -44,10 +44,6 @@ class TodoController extends Controller
     public function show(Todo $todo)
     {
         $user = Auth::user();
-        $responsePermissions = $this->permissionsToTodo($user, $todo);
-        if ($responsePermissions){
-            return response($responsePermissions);
-        }
         return new TodoResource($todo);
     }
 
@@ -57,10 +53,6 @@ class TodoController extends Controller
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
         $user = Auth::user();
-        $responsePermissions = $this->permissionsToTodo($user, $todo);
-        if ($responsePermissions){
-            return response($responsePermissions);
-        }
         $data = $request->validated();
         $todo->update($data);
         return new TodoResource($todo);
@@ -73,11 +65,6 @@ class TodoController extends Controller
     {
         if ($todo->deleted){
             return response(["message" => "This todo already is deleted"]);
-        }
-        $user = Auth::user();
-        $responsePermissions = $this->permissionsToTodo($user, $todo);
-        if ($responsePermissions){
-            return response($responsePermissions);
         }
         $todo->deleteTodo();
         return response(["message" => "Todo deleted"]);
@@ -92,29 +79,12 @@ class TodoController extends Controller
         if (!$todo->status){
             return response(["message" => "This todo already is closed"]);
         }
-        $user = Auth::user();
-        $responsePermissions = $this->permissionsToTodo($user, $todo);
-        if ($responsePermissions){
-            return response($responsePermissions);
-        }
         $todo->closeTodo();
         return response(["message" => "Todo closed"]);
     }
 
     public function changePublic(Todo $todo){
-        $user = Auth::user();
-        $responsePermissions = $this->permissionsToTodo($user, $todo);
-        if ($responsePermissions){
-            return response($responsePermissions);
-        }
         $todo->changePublicTodo();
         return response(["message" => "Todo is now " . ($todo->public ? "public" : "private")]);
-    }
-
-    private function permissionsToTodo($user, $todo){
-        if ($user->id !== $todo->user_id && !$todo->public)
-        {
-            return ["message" => "You dont have acces to this todo"];
-        }
     }
 }
