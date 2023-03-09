@@ -19,21 +19,21 @@ class Todo extends Model
         "user_id"
     ];
 
-    public function closeTask()
+    public function closeTodo()
     {
         $this->update([
             $this->status = 0 
         ]);
     }
     
-    public function changePublicTask()
+    public function changePublicTodo()
     {
         $this->update([
             $this->public = !$this->public
         ]);
     }
 
-    public function deleteTask()
+    public function deleteTodo()
     {
         $this->update([
             $this->deleted = 0 

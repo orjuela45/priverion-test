@@ -44,9 +44,9 @@ class TodoController extends Controller
     public function show(Todo $todo)
     {
         $user = Auth::user();
-        if ($user->id !== $todo->user_id && !$todo->public)
-        {
-            return response(["message" => "You dont have acces to this todo"], 401);
+        $responsePermissions = $this->permissionsToTodo($user, $todo);
+        if ($responsePermissions){
+            return response($responsePermissions);
         }
         return new TodoResource($todo);
     }
@@ -56,7 +56,14 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        //
+        $user = Auth::user();
+        $responsePermissions = $this->permissionsToTodo($user, $todo);
+        if ($responsePermissions){
+            return response($responsePermissions);
+        }
+        $data = $request->validated();
+        $todo->update($data);
+        return new TodoResource($todo);
     }
 
     /**
@@ -70,5 +77,12 @@ class TodoController extends Controller
     public function publicTodos(){
         $todos = Todo::where("public", 1)->orderBy("id", "desc")->paginate(10);
         return TodoResource::collection($todos);
+    }
+
+    private function permissionsToTodo($user, $todo){
+        if ($user->id !== $todo->user_id && !$todo->public)
+        {
+            return ["message" => "You dont have acces to this todo"];
+        }
     }
 }
