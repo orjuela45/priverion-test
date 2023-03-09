@@ -35,7 +35,12 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        $user = Auth::user();
+        if ($user->id !== $todo->user_id && !$todo->public)
+        {
+            return response(["message" => "You dont have acces to this todo"], 401);
+        }
+        return new TodoResource($todo);
     }
 
     /**

@@ -10,8 +10,6 @@ class Todo extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'todo_id';
-
     protected $fillable = [
         "title",
         "description",
