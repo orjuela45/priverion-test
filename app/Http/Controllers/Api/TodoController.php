@@ -88,6 +88,19 @@ class TodoController extends Controller
         return TodoResource::collection($todos);
     }
 
+    public function closeTodo(Todo $todo){
+        if (!$todo->status){
+            return response(["message" => "This todo already is closed"]);
+        }
+        $user = Auth::user();
+        $responsePermissions = $this->permissionsToTodo($user, $todo);
+        if ($responsePermissions){
+            return response($responsePermissions);
+        }
+        $todo->closeTodo();
+        return response(["message" => "Todo closed"]);
+    }
+
     private function permissionsToTodo($user, $todo){
         if ($user->id !== $todo->user_id && !$todo->public)
         {

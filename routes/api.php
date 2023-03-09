@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post("logout", [AuthController::class, "logout"]);
     Route::group(["prefix" => "/todos"], function(){
         Route::get("/public", [TodoController::class, "publicTodos"]);
+        Route::put("/close/{todo}", [TodoController::class, "closeTodo"]);
     });
     Route::apiResource("/todos", TodoController::class);
 });
