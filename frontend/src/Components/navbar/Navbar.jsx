@@ -4,7 +4,7 @@ import axiosClient from "../../helpers/AxiosClient";
 
 export const Navbar = () => {
 
-  const {token, setUser, setToken} = useStateContext()
+  const {token, setUser, setToken, user} = useStateContext()
 
   const handleLogout = async() => {
     const {status} = await axiosClient.post("/logout")
@@ -21,7 +21,12 @@ export const Navbar = () => {
     </>
   )
   if (token){
-    itemNavbar = (<a onClick={handleLogout} className="navbar-brand btn">logout</a>)
+    itemNavbar = (
+    <>
+      <span className="text-white me-4">Hola {user.name}</span>
+      <a onClick={handleLogout} className="navbar-brand btn">logout</a>
+    </>
+    )
   }
 
   return (
