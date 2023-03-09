@@ -1,14 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
+import { DefaultLayout, GuestLayout } from "./Components/Layouts";
 import { Login, NotFound, Signup } from "./views";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />
+    path: "/",
+    element: <DefaultLayout />,
+    children: []
   },
   {
-    path: "/signup",
-    element: <Signup />
+    path: "/",
+    element: <GuestLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/signup",
+        element: <Signup />
+      },
+    ]
   },
   {
     path: "*",
