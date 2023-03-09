@@ -53,4 +53,9 @@ class TodoController extends Controller
     {
         //
     }
+
+    public function publicTodos(){
+        $todos = Todo::where("public", 1)->orderBy("id", "desc")->paginate(10);
+        return TodoResource::collection($todos);
+    }
 }
