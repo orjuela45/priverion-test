@@ -52,7 +52,6 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        $user = Auth::user();
         $data = $request->validated();
         $todo->update($data);
         return new TodoResource($todo);

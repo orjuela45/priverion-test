@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import axiosClient from "../helpers/AxiosClient"
 
 export const MineTodos = () => {
@@ -73,6 +74,7 @@ export const MineTodos = () => {
                     todo.status ? <button className="btn btn-success m-1" onClick={() => handleCloseTodo(todo.id)}>Close</button> : ''
                   }
                   <button className="btn btn-primary m-1" onClick={() => handleSwitchShare(todo.id)}>{todo.public ? 'Private' : 'Public'}</button>
+                  <Link className="btn btn-warning m-1" to={`/edit/${todo.id}`}>Edit</Link>
                   <button className="btn btn-danger m-1" onClick={() => handleDeleteTodo(todo.id)}>Delete</button></td>
               </tr>
             ))
