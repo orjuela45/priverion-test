@@ -71,7 +71,16 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        if ($todo->deleted){
+            return response(["message" => "This todo already is deleted"]);
+        }
+        $user = Auth::user();
+        $responsePermissions = $this->permissionsToTodo($user, $todo);
+        if ($responsePermissions){
+            return response($responsePermissions);
+        }
+        $todo->deleteTodo();
+        return response(["message" => "Todo deleted"]);
     }
 
     public function publicTodos(){

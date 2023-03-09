@@ -36,7 +36,7 @@ class Todo extends Model
     public function deleteTodo()
     {
         $this->update([
-            $this->deleted = 0 
+            $this->deleted = 1
         ]);
     }
 
