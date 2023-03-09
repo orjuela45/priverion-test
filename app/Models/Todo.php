@@ -15,7 +15,8 @@ class Todo extends Model
         "description",
         "status",
         "public",
-        "deleted"
+        "deleted",
+        "user_id"
     ];
 
     public function closeTask()

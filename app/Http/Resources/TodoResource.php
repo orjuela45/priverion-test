@@ -18,8 +18,8 @@ class TodoResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "description" => $this->description,
-            "status" => $this->status,
-            "public" => $this->public,
+            "status" => intval($this->status),
+            "public" => intval($this->public),
             "user"=> $this->user,
         ];
     }

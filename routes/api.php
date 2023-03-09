@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::group(["prefix" => "/todos"], function(){
         Route::get("/public", [TodoController::class, "publicTodos"]);
     });
-    Route::apiResource("todos", TodoController::class)->parameters(["todo_id" => "id"]);
+    Route::apiResource("/todos", TodoController::class);
 });
 
 Route::post("/signup", [AuthController::class, "signup"]);

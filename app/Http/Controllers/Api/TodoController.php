@@ -27,7 +27,15 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        //
+        $user = Auth::user();
+        $data = $request->validated();
+        $todo = Todo::create([
+            "title"       => $data["title"],
+            "description" => $data["description"] ?? "",
+            "public"      => intval($data["public"]),
+            "user_id"     => $user->id
+        ]);
+        return new TodoResource($todo);
     }
 
     /**
